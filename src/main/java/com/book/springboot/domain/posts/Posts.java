@@ -11,8 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Getter
-@Entity
 @NoArgsConstructor
+@Entity
 public class Posts {
 
     @Id
@@ -41,3 +41,6 @@ public class Posts {
 
 
 }
+
+
+
