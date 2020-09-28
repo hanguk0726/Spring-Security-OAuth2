@@ -1,15 +1,18 @@
-package com.book.springboot;
+package com.posts;
 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+
 
 @EnableJpaAuditing
+@EnableAuthorizationServer
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(com.posts.Application.class, args);
+        SpringApplication.run(Application.class, args);
 
     }
 }
