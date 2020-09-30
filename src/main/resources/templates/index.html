@@ -2,13 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <header th:replace="fragments/header :: haeder"></header>
 <body>
-
+<!--<div class="container-fluid">-->
+<!--  <div class="row"-->
+<!--       style="position:fixed; bottom:90vh; left:85vw">-->
+<!--    -->
+<!--  </div>-->
+<!--</div>-->
 <h1>Leave a message</h1>
 <div class="col-md-12">
   <div class="row">
     <div class="col-md-6">
       <a href="/posts/save" role="button"
          class="btn btn-primary">글 등록</a>
+    </div>
+    <div style="left: 80vw; position: fixed;">
+      <a th:if="${user_name} != 'guest'"
+         href="/logout" role="button"
+         class="btn btn-primary col-xs-auto">로그아웃</a>
+      <a th:if="${user_name} == 'guest'"
+         href="/signup" role="button"
+         class="btn btn-primary col-xs-auto">회원가입</a>
+      &nbsp;&nbsp;
+      <a th:if="${user_name} == 'guest'"
+         href="/login" role="button"
+         class="btn btn-primary col-xs-auto">로그인</a>
     </div>
   </div>
   <br>
@@ -33,5 +50,7 @@
   </table>
 </div>
 <th:block th:replace="fragments/footer :: js-scripts"></th:block>
+<!--index.js 추가-->
+<script src="/js/app/index.js"></script>
 </body>
 </html>

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +26,11 @@ public class UserController {
 
   @PostMapping("/signup")
   public User signupUser(@RequestBody Map<String, String> userInfo) {
-    System.out.printf("test= %s and %s", userInfo.get("role"), Role.valueOf("ADMIN"));
     return userRepository.save(User.builder()
         .name(userInfo.get("name"))
         .password(passwordEncoder.encode(userInfo.get("password")))
-        .role(Role.valueOf(userInfo.get("role")))
+        .role(Role.MEMBER)
         .build());
   }
+
 }

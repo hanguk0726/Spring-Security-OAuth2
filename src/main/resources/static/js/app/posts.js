@@ -1,4 +1,4 @@
-var main = {
+var posts = {
     init : function () {
         var _this = this;
         $('#btn-save').on('click', function () {
@@ -30,7 +30,7 @@ var main = {
             type: 'POST',
             headers: { "Authorization": 'Bearer ' + this.getCookie('access_token')
             },
-            url: '/api/v1/api_posts',
+            url: '/api/v1/posts',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -45,14 +45,23 @@ var main = {
     update : function () {
         var data = {
             title: $('#title').val(),
+            author: $('#author').val(),
             content: $('#content').val()
         };
 
         var id = $('#id').val();
+        var user_name = $('#user_name').val();
+
+        if(user_name !== data.author){
+            alert("본인 글만 수정할 수 있습니다.")
+            return false;
+        }
 
         $.ajax({
             type: 'PUT',
-            url: '/api/v1/api_posts/'+id,
+            headers: { "Authorization": 'Bearer ' + this.getCookie('access_token')
+            },
+            url: '/api/v1/posts/'+id,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -65,15 +74,24 @@ var main = {
     },
     delete : function () {
         var id = $('#id').val();
+        var user_name = $('#user_name').val();
+        var author = $('#author').val();
+
+        if(user_name !== author && user_name !== 'admin'){
+            alert("본인 글만 삭제할 수 있습니다.")
+            return false;
+        }
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/v1/api_posts/'+id,
+            headers: { "Authorization": 'Bearer ' + this.getCookie('access_token')
+            },
+            url: '/api/v1/posts/'+id,
             dataType: 'json',
             contentType:'application/json; charset=utf-8'
         }).done(function() {
             alert('글이 삭제되었습니다.');
-            window.location.href = '/';
+            window.location.href = '/main';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -81,5 +99,5 @@ var main = {
 
 };
 
-main.init();
-console.log("access_token is " + main.getCookie('access_token'))
+posts.init();
+console.log("access_token is " + posts.getCookie('access_token'))
