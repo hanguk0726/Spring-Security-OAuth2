@@ -14,8 +14,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
-import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
@@ -40,16 +38,11 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     return new JdbcApprovalStore(dataSource);
   }
 
-//  @Bean
-//  public AuthorizationCodeServices jdbcAuthorizationCodeServices(DataSource dataSource) {
-//    return new JdbcAuthorizationCodeServices(dataSource);
-//  }
 
   @Override
   public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
     endpoints
         .tokenStore(tokenStore())
-//        .authorizationCodeServices(jdbcAuthorizationCodeServices(dataSource))
         .authenticationManager(authenticationManager)
         .approvalStore(approvalStore());
   }
@@ -64,9 +57,6 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     security
         .tokenKeyAccess("permitAll()")
         .checkTokenAccess("permitAll()");
-
-//        .checkTokenAccess("isAuthenticated()")
-//        .allowFormAuthenticationForClients();
   }
 
 
